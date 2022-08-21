@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        window.setInterval(refreshOrders, 60000)
+
+        function refreshOrders() {
+            $.get('orders/', appendToTable)
+            function appendToTable(response) {
+                let table = $('table#orders');
+                table.find('tr:gt(0)').remove();
+                response.forEach(el) =>{
+                    table.append(
+                        $( '<tr>' +
+                            '<td>el.excel_id</td>' +
+                            '<td>el.inplatform_id</td>' +
+                            '<td>el.price_usd</td>' +
+                            '<td>el.delivery_date</td>' +
+                            '<td>el.price_uah</td>' +
+                            '</tr>'
+                        ))
+                })
+            }
+        }
+    </script>
+</head>
+<body>
+<h1> Page refresh every 1 minute</h1>
+<table id="orders">
+    <tr>
+        <th>#</th>
+        <th>order id</th>
+        <th>delivery date</th>
+        <th>price usd</th>
+        <th>price uah</th>
+    </tr>
+</table>
+</body>
+</html>
